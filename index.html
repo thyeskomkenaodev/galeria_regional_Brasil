@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria | Regional Brasil - Grupo de Capoeira</title>
+    <meta name="description" content="Galeria de fotos do Grupo de Capoeira Regional Brasil - Eventos, rodas, batizados e workshops">
+    
+    <!-- Fontes e Ícones -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variáveis de cores */
+        :root {
+            --primary: #2E5EAA;
+            --secondary: #F9C80E;
+            --accent: #E15554;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --text: #333333;
+            --text-light: #6C757D;
+            --white: #FFFFFF;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+        }
+
+        [data-theme="dark"] {
+            --primary: #3A86FF;
+            --secondary: #FFBE0B;
+            --accent: #FF006E;
+            --dark: #121212;
+            --light: #1E1E1E;
+            --text: #E1E1E1;
+            --text-light: #A0A0A0;
+            --white: #121212;
+        }
+
+        /* Estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            transition: var(--transition);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background-color: rgba(var(--white), 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            position: relative;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            position: absolute;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger span:nth-child(3) {
+            bottom: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        /* Gallery Hero */
+        .gallery-hero {
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;            
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('logo.jpg') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto;
+            border-radius: var(--radius-md);
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            background-color: var(--light);
+            color: var(--text);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 250px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: var(--white);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Support Section */
+        .support-section {
+            padding: 3rem 0; /* Reduzido o espaçamento vertical */
+            background-color: var(--light);
+        }
+
+        .support-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 2rem; /* Reduzido o espaçamento entre os itens */
+        }
+
+        .support-text h3 {
+            font-size: 1.2rem; /* Reduzido o tamanho do título */
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .support-text p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem; /* Reduzido o tamanho do texto */
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .support-image img {
+            width: 100%;
+            max-width: 180px; /* Reduzido ainda mais o tamanho do logo */
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: block;
+            margin: 0 auto;
+        }
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 1.5rem 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .theme-switcher:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            max-height: 80vh;
+            max-width: 100%;
+            border-radius: var(--radius-md);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .lightbox-caption {
+            color: var(--white);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+
+            .support-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .support-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .gallery-item {
+                height: 200px;
+            }
+            
+            .gallery-hero {
+                height: 40vh;
+                min-height: 300px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-filters {
+                gap: 0.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="logo.jpg" alt="Regional Brasil">
+                    <div class="logo-text">
+                        <h1>Regional Brasil</h1>
+                        <span>Grupo de Capoeira</span>
+                    </div>
+                </a>
+                
+                <ul class="nav-menu"></ul>
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gallery-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Nossa Galeria</h1>
+            <p class="hero-subtitle">Momentos marcantes do nosso grupo</p>
+        </div>
+    </section>
+
+    <!-- Galeria de Fotos -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Nossa História em Imagens</h2>
+            
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="eventos">Eventos</button>
+                <button class="filter-btn" data-filter="aulas-ct">Aulas no CT</button>
+                <button class="filter-btn" data-filter="projeto-social">Projeto Social</button>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Novo Evento Prioritário 1 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="bannerdracena.jpg" alt="Seminário Anual">
+                    <div class="gallery-overlay">
+                        <h3>campeonado interestadual</h3>
+                        <p>Dracena -SP.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento Prioritário 2 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="viagemdracena.jpg" alt="Roda de Mestres">
+                    <div class="gallery-overlay">
+                        <h3>Viagem Dracena</h3>
+                        <p>Regional Brasil.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento Prioritário 3 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="campeao.jpg" alt="Palestra Cultural">
+                    <div class="gallery-overlay">
+                        <h3>Campeões de Brasilândia</h3>
+                        <p>Regional Brasil.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento Prioritário 4 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="turma.jpg" alt="Vivência de Capoeira Angola">
+                    <div class="gallery-overlay">
+                        <h3>Representantes brasilandenses</h3>
+                        <p>Grupo de capoeira Regional Brasil.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 3 - Evento -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="banner.jpg" alt="Evento de Capoeira em Caiuá">
+                    <div class="gallery-overlay">
+                        <h3>Evento de Capoeira em Caiuá</h3>
+                        <p>Evento com Mestres e convidados</p>
+                    </div>
+                </div>
+                
+                <!-- Foto 5 - Aula CT -->
+                <div class="gallery-item" data-category="aulas-ct">
+                    <img src="fotoct.jpg" alt="Aulas no CT">
+                    <div class="gallery-overlay">
+                        <h3>Aulas no CT</h3>
+                        <p>Treinamento regular em nosso centro</p>
+                    </div>
+                </div>
+                
+                <!-- Foto 6 - Projeto Social -->
+                <div class="gallery-item" data-category="projeto-social">
+                    <img src="fotomaster.jpg" alt="Projeto Social">
+                    <div class="gallery-overlay">
+                        <h3>Projeto Social</h3>
+                        <p>Aulas do nosso projeto social.</p>
+                    </div>
+                </div>
+                
+                <!-- Foto 8 - Evento -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="caiuamestre.jpg" alt="Festival">
+                    <div class="gallery-overlay">
+                        <h3>Festival de Capoeira em Caiuá</h3>
+                        <p>Participação no festival ( Mestre Sagui) </p>
+                    </div>
+                </div>
+                
+                <!-- Novo Evento 1 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="mestrefoca.jpg" alt="Batizado e Troca de Cordas">
+                    <div class="gallery-overlay">
+                        <h3>Batizado e Troca de Cordas</h3>
+                        <p>Cerimônia anual de graduação.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento 2 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="trocadecordas.jpg" alt=" Troca de Cordas">
+                    <div class="gallery-overlay">
+                        <h3>Troca de Cordas</h3>
+                        <p>evento em caiuá</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento 3 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="eventocaiu.jpg" alt="Apresentação Cultural">
+                    <div class="gallery-overlay">
+                        <h3>evento em caiuá</h3>
+                        <p>Show de capoeira no evento da cidade.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento 4 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="bannerbataguasul.jpg" alt="Roda de Confraternização">
+                    <div class="gallery-overlay">
+                        <h3>evento em Bataguasul - MS</h3>
+                        <p>Batizado e troca de cordas.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento 5 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="rodabtaguasul.jpg" alt="Curso de Instrumentos">
+                    <div class="gallery-overlay">
+                        <h3>evento em Bataguasul - MS</h3>
+                        <p>Regional Brasil.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento 6 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="cavernoso.jpg" alt="Aulão na Praia">
+                    <div class="gallery-overlay">
+                        <h3>evento em Bataguasul - MS</h3>
+                        <p>regional Brasil.</p>
+                    </div>
+                </div>
+
+                <!-- Novo Evento 7 -->
+                <div class="gallery-item" data-category="eventos">
+                    <img src="mestreseamigos.jpg" alt="Treino Funcional">
+                    <div class="gallery-overlay">
+                        <h3>evento em Bataguasul - MS</h3>
+                        <p>Foco em força e resistência.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 10 - Aula CT -->
+                <div class="gallery-item" data-category="aulas-ct">
+                    <img src="aulact2.jpg" alt="Aula Infantil">
+                    <div class="gallery-overlay">
+                        <h3>Aula Infantil</h3>
+                        <p>Treinamento no CT</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Seção de Apoio -->
+    <section class="support-section">
+        <div class="container">
+            <h2 class="section-title">Apoio Institucional</h2>
+            <div class="support-content">
+                <div class="support-text">
+                    <h3>ASSOCIAÇÃO CULTURAL DE CAPOEIRA ARTE E MOVIMENTO – ACCAM</h3>
+                    <p><strong>CNPJ:</strong> 49.813.076/0001-25</p>
+                    <p><strong>Endereço:</strong> Rua Nildo Borelli, 646, Centro - CEP: 79670-000</p>
+                    <p><strong>Presidente:</strong> Vera Lúcia da Silva</p>
+                </div>
+                <div class="support-image">
+                    <img src="logo2.jpg" alt="Logo da ACCAM">
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Thyesko Menão. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="close-btn">&times;</span>
+            <img src="" alt="" id="lightbox-img">
+            <div class="lightbox-caption">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-desc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher" id="themeSwitcher">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Menu Mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (header) {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            }
+        });
+        
+        // Tema Claro/Escuro
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        const htmlElement = document.documentElement;
+        
+        const applyTheme = (theme) => {
+            htmlElement.setAttribute('data-theme', theme);
+            if (themeSwitcher) {
+                const themeIcon = themeSwitcher.querySelector('i');
+                if (theme === 'dark') {
+                    themeIcon?.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    themeIcon?.classList.replace('fa-sun', 'fa-moon');
+                }
+            }
+        };
+        
+        // Aplica o tema salvo no carregamento
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+        
+        // Evento do botão de troca de tema
+        if (themeSwitcher) {
+            themeSwitcher.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+        }
+        
+        // Filtro da galeria
+        const galleryFilterBtns = document.querySelectorAll('.gallery-filters .filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        if (galleryFilterBtns.length > 0 && galleryItems.length > 0) {
+            galleryFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    galleryFilterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    galleryItems.forEach(item => {
+                        item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'block' : 'none';
+                    });
+                });
+            });
+        }
+        
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxDesc = document.getElementById('lightbox-desc');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        if (lightbox) {
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const imgSrc = this.querySelector('img').src;
+                    const title = this.querySelector('h3').textContent;
+                    const desc = this.querySelector('p').textContent;
+                    
+                    lightboxImg.src = imgSrc;
+                    lightboxImg.alt = title;
+                    lightboxTitle.textContent = title;
+                    lightboxDesc.textContent = desc;
+                    
+                    lightbox.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
